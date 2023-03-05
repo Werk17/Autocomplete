@@ -3,12 +3,12 @@ import java.util.Comparator;
 
 public class BinarySearchDeluxe {
 
-
-    // Returns the index of the first key in a[] that equals the search key, or -1 if no such key.
+    // Returns the index of the first key in a[] that equals the search key, or -1
+    // if no such key.
     public static <Key> int firstIndexOf(Key[] a, Key key, Comparator<Key> comparator) {
-        if (isValid(a, key, comparator)) ; // check for valid entry
+        if (isValid(a, key, comparator))
+            ; // check for valid entry
         // Binary search implementation
-        int index = 0;
         int lo = 0;
         int hi = a.length - 1;
         // check if the first key is equal to the given key
@@ -19,38 +19,58 @@ public class BinarySearchDeluxe {
             // key is in left half
             if (comparator.compare(key, a[mid]) < 0) {
                 hi = mid - 1;
-            }// key is in right half
+            } // key is in right half
             else if (comparator.compare(key, a[mid]) > 0) {
                 lo = mid + 1;
             } // if 2 keys are the same
-            else if (comparator.compare(a[mid - 1], a[mid]) > 0) {
+            else if (comparator.compare(a[mid - 1], a[mid]) == 0) {
                 hi = mid - 1;
-            }
-            else return mid;
-
+            } else
+                return mid;
         }
 
-        return -999; //FIXME
+        return -1;
 
     }
 
-
-    // Returns the index of the last key in a[] that equals the search key, or -1 if no such key.
+    // Returns the index of the last key in a[] that equals the search key, or -1 if
+    // no such key.
     public static <Key> int lastIndexOf(Key[] a, Key key, Comparator<Key> comparator) {
-        return -999; //FIXME
+        if (isValid(a, key, comparator))
+            ; // check for valid entry
+        // Binary search implementation
+        int lo = 0;
+        int hi = a.length - 1;
+        // check if the first key is equal to the given key
+        if (comparator.compare(a[hi], key) == 0)
+            return hi;
+        while (lo <= hi) {
+            int mid = lo + (hi - lo) / 2;
+            // key is in left half
+            if (comparator.compare(key, a[mid]) < 0) {
+                hi = mid - 1;
+            } // key is in right half
+            else if (comparator.compare(key, a[mid]) > 0) {
+                lo = mid + 1;
+            } // if 2 keys are the same
+            else if (comparator.compare(a[mid + 1], a[mid]) == 0) {
+                lo = mid + 1;
+            } else
+                return mid;
+        }
+        return -1;
     }
 
     private static <Key> boolean isValid(Key[] a, Key key, Comparator<Key> comparator) {
         if (a == null || key == null || comparator == null) {
             throw new IllegalArgumentException("Can't have null values.");
-        }
-        else {
+        } else {
             return true;
         }
     }
 
-
-    // unit testing (you should have some Unit Testing here to confirm that your methods work); for example...
+    // unit testing (you should have some Unit Testing here to confirm that your
+    // methods work); for example...
     public static void main(String[] args) {
 
         Term[] terms = new Term[5];
@@ -61,6 +81,10 @@ public class BinarySearchDeluxe {
         terms[4] = new Term("Eva", 1);
         Arrays.sort(terms);
 
+        for (Term term : terms) {
+            StdOut.println(term);
+        }
+        StdOut.println();
         Term searchme = new Term("J", 0);
         int first = BinarySearchDeluxe.firstIndexOf(terms, searchme, Term.byPrefixOrder(1));
         int last = BinarySearchDeluxe.lastIndexOf(terms, searchme, Term.byPrefixOrder(1));
