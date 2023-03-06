@@ -40,13 +40,19 @@ public class Term implements Comparable<Term> {
             String sub2;
 
             public int compare(Term v, Term w) {
-                if (r > v.QUERY.length()) {
-                    sub1 = v.QUERY;
-                    sub2 = w.QUERY;
-                } else {
+                // check first query against length r
+                if (r < v.QUERY.length()) {
                     sub1 = v.QUERY.substring(0, r);
-                    sub2 = w.QUERY.substring(0, r);
+                } else {
+                    sub1 = v.QUERY;
                 }
+                // check second query against length r
+                if (r < w.QUERY.length()) {
+                    sub2 = w.QUERY.substring(0, r);
+                } else {
+                    sub2 = w.QUERY;
+                }
+                // compare substring 1 with substring 2
                 return sub1.compareTo(sub2);
 
             }
