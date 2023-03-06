@@ -46,7 +46,8 @@ public class Autocomplete {
             throw new NullPointerException("Cannot have a null value for prefix");
         int firstIndex = BinarySearchDeluxe.firstIndexOf(terms, new Term(prefix, 0),
                 Term.byPrefixOrder(prefix.length()));
-        int lastIndex = BinarySearchDeluxe.lastIndexOf(terms, new Term(prefix, 0), Term.byPrefixOrder(prefix.length()));
+        int lastIndex = BinarySearchDeluxe.lastIndexOf(terms, new Term(prefix, 0),
+                Term.byPrefixOrder(prefix.length()));
         // same when initizing array of matching terms + 1 with offset of indexing
         return lastIndex - firstIndex + 1;
     }
